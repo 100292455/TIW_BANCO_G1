@@ -20,6 +20,19 @@
     </properties>
 
     <dependencies>
+    	<dependency>
+        	<groupId>es.uc3m.tiw.model</groupId>
+        	<artifactId>banco-model</artifactId>
+        	<version>${project.parent.version}</version>
+        	<scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>es.uc3m.tiw.ejb</groupId>
+        	<artifactId>banco-ejb</artifactId>
+        	<version>${project.parent.version}</version>
+        	<type>ejb</type>
+        	<scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

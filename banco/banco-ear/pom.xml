@@ -30,16 +30,20 @@
             <defaultLibBundleDir>lib</defaultLibBundleDir>
 <modules>
             <!-- 4.5.1. Include Java Module. -->
-            <jarModule>
+           <!--  <jarModule>
             <groupId>es.uc3m.tiw.util</groupId>
           <artifactId>banco-util</artifactId>
-           </jarModule>
+           </jarModule> -->
             <!-- 4.5.2. Include EJB Module. -->
-            <ejbModule>
+            <!-- <ejbModule>
           <groupId>es.uc3m.tiw.ejb</groupId>
             <artifactId>banco-ejb</artifactId>
-            </ejbModule>
+            </ejbModule> -->
             <!-- 4.5.3. Include Web Application Module. -->
+            <jarModule>
+            <groupId>es.uc3m.tiw.model</groupId>
+          <artifactId>banco-model</artifactId>
+           </jarModule>
             <webModule>
             <groupId>es.uc3m.tiw.web</groupId>
             <artifactId>banco-web</artifactId>
@@ -58,23 +62,28 @@
       
       <scope>test</scope>
     </dependency>
-  	<dependency>
+  	<!-- <dependency>
   		<groupId>es.uc3m.tiw.util</groupId>
   		<artifactId>banco-util</artifactId>
   		<version>1.0</version>
   		<type>jar</type>
-  	</dependency>
-  	<dependency>
+  	</dependency> -->
+  	<!-- <dependency>
   		<groupId>es.uc3m.tiw.ejb</groupId>
   		<artifactId>banco-ejb</artifactId>
   		<version>1.0</version>
   		<type>ejb</type>
-  	</dependency>
+  	</dependency> -->
   	<dependency>
   		<groupId>es.uc3m.tiw.web</groupId>
   		<artifactId>banco-web</artifactId>
   		<version>1.0</version>
   		<type>war</type>
+  	</dependency>
+  	<dependency>
+ 		<groupId>es.uc3m.tiw.model</groupId>
+  		<artifactId>banco-model</artifactId>
+  		<version>1.0</version>
   	</dependency>
   </dependencies>
 </project>
