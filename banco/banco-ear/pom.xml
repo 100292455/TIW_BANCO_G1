@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+        <artifactId>banco</artifactId>
+        <groupId>es.uc3m.tiw</groupId>
+        <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <groupId>es.uc3m.tiw.ear</groupId>
+  <artifactId>banco-ear</artifactId>
+  <packaging>ear</packaging>
+
+  <name>banco-ear</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ear-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+            <version>6</version>
+            <defaultLibBundleDir>lib</defaultLibBundleDir>
+<modules>
+            <!-- 4.5.1. Include Java Module. -->
+            <jarModule>
+            <groupId>es.uc3m.tiw.util</groupId>
+          <artifactId>banco-util</artifactId>
+           </jarModule>
+            <!-- 4.5.2. Include EJB Module. -->
+            <ejbModule>
+          <groupId>es.uc3m.tiw.ejb</groupId>
+            <artifactId>banco-ejb</artifactId>
+            </ejbModule>
+            <!-- 4.5.3. Include Web Application Module. -->
+            <webModule>
+            <groupId>es.uc3m.tiw.web</groupId>
+            <artifactId>banco-web</artifactId>
+           <contextRoot>${webContext}</contextRoot>          
+            </webModule>
+          </modules>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+   <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      
+      <scope>test</scope>
+    </dependency>
+  	<dependency>
+  		<groupId>es.uc3m.tiw.util</groupId>
+  		<artifactId>banco-util</artifactId>
+  		<version>1.0</version>
+  		<type>jar</type>
+  	</dependency>
+  	<dependency>
+  		<groupId>es.uc3m.tiw.ejb</groupId>
+  		<artifactId>banco-ejb</artifactId>
+  		<version>1.0</version>
+  		<type>ejb</type>
+  	</dependency>
+  	<dependency>
+  		<groupId>es.uc3m.tiw.web</groupId>
+  		<artifactId>banco-web</artifactId>
+  		<version>1.0</version>
+  		<type>war</type>
+  	</dependency>
+  </dependencies>
+</project>
