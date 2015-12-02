@@ -26,9 +26,9 @@
         	<version>${project.parent.version}</version>
         	<scope>provided</scope>
         </dependency>
-        <dependency>
+         <dependency>
         	<groupId>es.uc3m.tiw.ejb</groupId>
-        	<artifactId>banco-ejb</artifactId>
+        	<artifactId>demo-ejb</artifactId>
         	<version>${project.parent.version}</version>
         	<type>ejb</type>
         	<scope>provided</scope>

@@ -27,7 +27,7 @@
             <scope>provided</scope>
         </dependency>
          <dependency>
-        	<groupId>es.uc3m.tiw.model</groupId>
+      	<groupId>es.uc3m.tiw.model</groupId>
         	<artifactId>banco-model</artifactId>
         	<version>${project.parent.version}</version>
         </dependency>
