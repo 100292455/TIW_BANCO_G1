@@ -49,12 +49,12 @@ public class PedidoDAOImpl implements PedidoDAO{
 
 	@Override
 	public Collection<Pedido> buscarTodosLosPedidos() {
-		return em.createQuery("select p from Pedido p",Pedido.class).getResultList();
+		return em.createQuery("select p from pedido p",Pedido.class).getResultList();
 	}
 
 	@Override
 	public Pedido recuperarPedidoPorCodigoPago(String COD_pago) {
-		return em.createQuery("select p from Pedido p where p.COD_pago='"+COD_pago+"'", Pedido.class).getSingleResult();
+		return em.createQuery("select p from pedido p where p.COD_pago='"+COD_pago+"'", Pedido.class).getSingleResult();
 		
 	}
 
