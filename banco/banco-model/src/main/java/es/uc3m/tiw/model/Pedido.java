@@ -2,6 +2,7 @@ package es.uc3m.tiw.model;
 
 import static javax.persistence.GenerationType.AUTO;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,8 +18,10 @@ public class Pedido {
 	@Id
  	@GeneratedValue(strategy = AUTO)
 	private Integer ID_pedido;
-	private Integer ImporteCobrar; //lo que viene del portal
-	private Integer ImporteCobrado; //99% de lo que viene del portal -- 1% de comision para el banco
+	@Column(columnDefinition="Decimal(10,2) default '0.0'")
+	private Double ImporteCobrar; //lo que viene del portal
+	@Column(columnDefinition="Decimal(10,2) default '0.0'")
+	private Double ImporteCobrado; //99% de lo que viene del portal -- 1% de comision para el banco
 	private String COD_tarjeta; //tarjeta de credito del alumno -- 20 posiciones alfanumericas, la primera A/B
 	private String COD_operacion; //codigo de operacion bancaria que generara el banco -- BANCOyyyymmddhhssSSSXX
 	private String COD_pago; //codigo de pedido que viene del portal -- ORDERyyyymmddhhssSSSXX
@@ -26,14 +29,14 @@ public class Pedido {
 	public Pedido() {
 	}
 	
-	public Pedido(Integer importeCobrar, String cOD_tarjeta, String cOD_pago) {
+	public Pedido(Double importeCobrar, String cOD_tarjeta, String cOD_pago) {
 		super();
 		this.ImporteCobrar = importeCobrar;
 		this.COD_tarjeta = cOD_tarjeta;
 		this.COD_pago = cOD_pago;
 	}
 	
-	public Pedido(Integer importeCobrar, Integer importeCobrado, String cOD_tarjeta,
+	public Pedido(Double importeCobrar, Double importeCobrado, String cOD_tarjeta,
 			String cOD_operacion, String cOD_pago) {
 		super();
 		this.ImporteCobrar = importeCobrar;
@@ -49,16 +52,16 @@ public class Pedido {
 	public void setID_pedido(Integer iD_pedido) {
 		this.ID_pedido = iD_pedido;
 	}
-	public Integer getImporteCobrar() {
+	public Double getImporteCobrar() {
 		return ImporteCobrar;
 	}
-	public void setImporteCobrar(Integer importeCobrar) {
+	public void setImporteCobrar(Double importeCobrar) {
 		this.ImporteCobrar = importeCobrar;
 	}
-	public Integer getImporteCobrado() {
+	public Double getImporteCobrado() {
 		return ImporteCobrado;
 	}
-	public void setImporteCobrado(Integer importeCobrado) {
+	public void setImporteCobrado(Double importeCobrado) {
 		this.ImporteCobrado = importeCobrado;
 	}
 	public String getCOD_tarjeta() {

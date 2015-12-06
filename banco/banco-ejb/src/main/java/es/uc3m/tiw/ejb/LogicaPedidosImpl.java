@@ -22,9 +22,9 @@ public class LogicaPedidosImpl implements LogicaPedidos {
 	@Override
 	public String validarPedido(Pedido pedido) {
 
-		
-		
-		Calendar c=Calendar.getInstance();
+    	//String retorno = " "; 
+    	//logPedidos.validarPedido(pedido);
+    	Calendar c=Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH);  
 		int day = c.get(Calendar.DATE);
@@ -36,26 +36,28 @@ public class LogicaPedidosImpl implements LogicaPedidos {
 		if (PM_AM == 0){PM_AMStr = "AM";}
 		else {PM_AMStr = "PM";}
 		
-		String fail = "fail";
+		String fail = "fail"; 
 		String cod_operacionStr = "BANCO"+year+month+day+hours+seconds+miliseconds+PM_AMStr;
 		if (pedido.getCOD_tarjeta().length() == 20 ){
 			if (pedido.getCOD_tarjeta().startsWith("A")) {
-				try {
+				pedido.setCOD_operacion(cod_operacionStr);
+			/*	try {
 					pedido = pedDao.guardarPedido(pedido);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				return cod_operacionStr;
+				} */
+				return pedido.getCOD_operacion();
 			}
 			else if(pedido.getCOD_tarjeta().startsWith("B")){
-				try {
+				pedido.setCOD_operacion(cod_operacionStr);
+			/*	try {
 					pedido = pedDao.guardarPedido(pedido);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				return cod_operacionStr;
+				} */
+				return pedido.getCOD_operacion();
 			}
 			return fail;
 		}
@@ -63,18 +65,19 @@ public class LogicaPedidosImpl implements LogicaPedidos {
 	}
 
 	@Override
-	public Integer conciliarPedido(String codPedido) {
-		
-		Pedido pedido = pedDao.recuperarPedidoPorCodigoPago(codPedido);
-		Integer importeConciliado = (int) (pedido.getImporteCobrar() * 0.99);
+	public Double conciliarPedido(String codPedido) {
+    	
+    	Pedido pedido = pedDao.recuperarPedidoPorCodigoPago(codPedido);
+    	Pedido nuevoPedido = new Pedido();
+		Double importeConciliado = (Double) (10 * 0.99);
 		pedido.setImporteCobrado(importeConciliado);
 		try {
-			pedDao.modificarPedido(pedido);
+			nuevoPedido = pedDao.modificarPedido(pedido);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return importeConciliado;
+		} 
+		return nuevoPedido.getImporteCobrado();
 	}
 
 }

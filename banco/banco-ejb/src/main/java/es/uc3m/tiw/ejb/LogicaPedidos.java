@@ -6,6 +6,6 @@ public interface LogicaPedidos {
 	
 	String validarPedido(Pedido pedido);
 	
-	Integer conciliarPedido(String cod_pedido);
+	Double conciliarPedido(String cod_pedido);
 
 }

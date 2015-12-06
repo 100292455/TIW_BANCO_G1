@@ -5,6 +5,9 @@ import java.util.Calendar;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.transaction.UserTransaction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,23 +25,19 @@ import es.uc3m.tiw.model.Pedido;
 import es.uc3m.tiw.model.dao.*;
 //import es.uc3m.tiw.ejb.LogicaPedidos;
 /**
- * La url de acceso sera: 
- * Para getText() -- http://localhost:8080/banco-web/resources/pasarela/prueba 
- * Para getDatos() -- http://localhost:8080/banco-web/resources/pasarela/prueba/23/david 
-
  * @author Miguel Solera
  *
  */
 @Path("pasarela")
 public class PasarelaService {
     
-    @Context
+	@Context
     private UriInfo context;
     @PersistenceContext(unitName = "demoTIW")
 	private EntityManager em;
 	@Resource
 	private UserTransaction ut;
-	private PedidoDAO pedDao = new PedidoDAOImpl(em, ut);
+	private PedidoDAO pedDao;
 	
  //   private LogicaPedidos logPedidos;
     /**
@@ -47,6 +46,14 @@ public class PasarelaService {
     public PasarelaService(){
         // TODO Auto-generated constructor stub
     }
+    
+    
+    @GET
+    @Path("prueba")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getText() {
+         return "Todo OK";
+   } 
     
     /**
      * Se accede por GET y se consume texto plano 
@@ -63,10 +70,11 @@ public class PasarelaService {
     @Path("pedido/{importe}/{tarjeta}/{pedido}/xml")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String devuelveXML(@PathParam("importe")Integer importeCobrar,@PathParam("tarjeta") String tarjeta,@PathParam("pedido") String codPedido){
-    	    	
+    public String devuelveXML(@PathParam("importe")Double importeCobrar,@PathParam("tarjeta") String tarjeta,@PathParam("pedido") String codPedido){
+
+		pedDao = new PedidoDAOImpl(em, ut);
     	Pedido pedido = new Pedido(importeCobrar, tarjeta, codPedido);
-    	//String retorno = ""; 
+    	//String retorno = " "; 
     	//logPedidos.validarPedido(pedido);
     	Calendar c=Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
@@ -85,23 +93,23 @@ public class PasarelaService {
 		if (pedido.getCOD_tarjeta().length() == 20 ){
 			if (pedido.getCOD_tarjeta().startsWith("A")) {
 				pedido.setCOD_operacion(cod_operacionStr);
-				try {
+			/*	try {
 					pedido = pedDao.guardarPedido(pedido);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				return cod_operacionStr;
+				} */
+				return pedido.getCOD_operacion();
 			}
 			else if(pedido.getCOD_tarjeta().startsWith("B")){
 				pedido.setCOD_operacion(cod_operacionStr);
-				try {
+			/*	try {
 					pedido = pedDao.guardarPedido(pedido);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				return cod_operacionStr;
+				} */
+				return pedido.getCOD_operacion();
 			}
 			return fail;
 		}
@@ -112,7 +120,7 @@ public class PasarelaService {
     /**
      * Se accede por GET y se consume texto plano
      * se devuelve texto plano
-     * La URL es: http://localhost:8080/banco-web/resources/pasarela/pedido/12345abc/xml
+     * La URL es: http://localhost:8080/banco-web/resources/pasarela/conciliar/12345abc/xml
      * @param pedido
      * @return importe conciliado
      */
@@ -120,21 +128,23 @@ public class PasarelaService {
     @Path("conciliar/{pedido}/xml")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Integer conciliarPedidos(@PathParam("pedido") String codPedido){
-    	    	
+    public Double conciliarPedidos(@PathParam("pedido") String codPedido){
+    	
+    	pedDao = new PedidoDAOImpl(em, ut); 
     	//String retorno = codPedido; 
     	//logPedidos.conciliarPedido(codPedido);
     	
-    	Pedido pedido = pedDao.recuperarPedidoPorCodigoPago(codPedido);
-		Integer importeConciliado = (int) (pedido.getImporteCobrar() * 0.99);
+    	//Pedido pedido = pedDao.recuperarPedidoPorCodigoPago(codPedido);
+    	Pedido pedido = new Pedido(10.0, 0.0, "tarjeta", "codigo banco", codPedido);
+		Double importeConciliado = (Double) (10 * 0.99);
 		pedido.setImporteCobrado(importeConciliado);
-		try {
-			pedDao.modificarPedido(pedido);
+	/*	try {
+			nuevoPedido = pedDao.modificarPedido(pedido);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return importeConciliado;
+		} */
+		return pedido.getImporteCobrado();
     	
     	//return retorno;
     }
