@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import es.uc3m.tiw.model.Pedido;
 
-public interface PedidoDAO {
+public interface PedidoDAOBanco {
 	
 	public abstract Pedido guardarPedido(Pedido nuevoPedido) throws Exception;
 

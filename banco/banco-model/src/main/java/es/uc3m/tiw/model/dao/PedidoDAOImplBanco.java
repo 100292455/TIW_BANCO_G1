@@ -3,43 +3,35 @@ package es.uc3m.tiw.model.dao;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
-import javax.transaction.UserTransaction;
 
 import es.uc3m.tiw.model.Pedido;
 
-public class PedidoDAOImpl implements PedidoDAO{
+public class PedidoDAOImplBanco implements PedidoDAOBanco{
 	
 	private final EntityManager em;
-	private final UserTransaction ut;
 	
 	
-	public PedidoDAOImpl(EntityManager em, UserTransaction ut) {
+	public PedidoDAOImplBanco(EntityManager em) {
 		super();
 		this.em = em;
-		this.ut = ut;
 	}
 	
 	@Override
 	public Pedido guardarPedido(Pedido nuevoPedido) throws Exception {
-		ut.begin();
+		System.out.println("traza 4");
 		em.persist(nuevoPedido);
-		ut.commit();
 		return nuevoPedido;
 	}
 
 	@Override
 	public Pedido modificarPedido(Pedido Pedido) throws Exception {
-		ut.begin();
 		em.merge(Pedido);
-		ut.commit();
 		return Pedido;
 	}
 
 	@Override
 	public void borrarPedido(Pedido Pedido) throws Exception {
-		ut.begin();
 		em.remove(em.merge(Pedido));
-		ut.commit();		
 	}
 
 	@Override
