@@ -49,7 +49,7 @@ public class PasarelaService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String devuelveXML(@PathParam("importe")Double importeCobrar,@PathParam("tarjeta") String tarjeta,@PathParam("pedido") String codPedido){
-    	System.out.println("Entramos en generar orden");
+    	
     	Pedido pedido = new Pedido(importeCobrar, tarjeta, codPedido);
     	String retorno = " "; 
     	retorno = logPedidos.validarPedido(pedido);
@@ -69,7 +69,7 @@ public class PasarelaService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Double conciliarPedidos(@PathParam("pedido") String codPedido){
-    	System.out.println("Entramos en conciliar");
+    
     	Double retorno ; 
     	retorno = logPedidos.conciliarPedido(codPedido);
     	
