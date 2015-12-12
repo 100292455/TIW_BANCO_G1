@@ -33,7 +33,7 @@ public class LogicaPedidosImpl implements LogicaPedidos {
 	 */
 	@Override
 	public String validarPedido(Pedido pedido) {
-
+		System.out.println("validar 1");
 		Calendar c=Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
 		int month = c.get(Calendar.MONTH) + 1;  
@@ -80,7 +80,7 @@ public class LogicaPedidosImpl implements LogicaPedidos {
 	
 	@Override
 	public Double conciliarPedido(String codPedido) {
-
+		System.out.println("conciliar 1");
 		Pedido pedido = pedDao.recuperarPedidoPorCodigoPago(codPedido);
 		Double importeConciliado = (Double) (pedido.getImporteCobrar() * 0.99);
 		pedido.setImporteCobrado(importeConciliado);

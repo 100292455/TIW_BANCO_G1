@@ -40,7 +40,7 @@ public class PasarelaService {
      * La URL es: http://localhost:8080/banco-web/resources/pasarela/pedido/10/K1234567890123456789/12345abc/xml
      * La URL es: http://localhost:8080/banco-web/resources/pasarela/pedido/10/1234567890123456789/12345abc/xml
      * @param importe
-     * @param tarjeta
+     * @param tarjeta  
      * @param pedido
      * @return codigo de operacion bancaria o fail
      */
@@ -49,7 +49,7 @@ public class PasarelaService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String devuelveXML(@PathParam("importe")Double importeCobrar,@PathParam("tarjeta") String tarjeta,@PathParam("pedido") String codPedido){
-
+    	System.out.println("Entramos en generar orden");
     	Pedido pedido = new Pedido(importeCobrar, tarjeta, codPedido);
     	String retorno = " "; 
     	retorno = logPedidos.validarPedido(pedido);
@@ -63,13 +63,13 @@ public class PasarelaService {
      * La URL es: http://localhost:8080/banco-web/resources/pasarela/conciliar/12345abc/xml
      * @param pedido
      * @return importe conciliado
-     */
+     */ 
     @GET
     @Path("conciliar/{pedido}/xml")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Double conciliarPedidos(@PathParam("pedido") String codPedido){
-    	
+    	System.out.println("Entramos en conciliar");
     	Double retorno ; 
     	retorno = logPedidos.conciliarPedido(codPedido);
     	
